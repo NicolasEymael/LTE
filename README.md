@@ -38,5 +38,7 @@ transmissions with up to four streams."
 OFDM:
 aquela coisa que usa prefixo ciclico e tals que caiu na prova e acho que tem uma funçao pra isso no matlab
 
-deve ter função pra colocar ruido no matlab e a recepção é basicamente o contrario da transmissão então eras isso o trabalho
+deve ter função pra colocar ruido no matlab e a recepção é basicamente o contrario da transmissão então eras isso o trabalho.
+
+PLOTAR GRAFICOS BER PARA DIFERENTES VARIAÇOES DO SISTEMA
     
