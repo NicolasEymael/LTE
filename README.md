@@ -7,9 +7,9 @@ cada documento fala uma coisa e acho que dependendo dos releases com o passar do
   https://bwn.ece.gatech.edu/ltea/papers/LTE_overview.pdf
   https://literature.cdn.keysight.com/litweb/pdf/5989-8139EN.pdf?id=1431418
 
-a ideia inicial é simular só o downlink (que usa OFDM) e ignorar o uplink (que usa SC-FDMA) pra tentar facilitar as coisas
-o LTE tem bastaaante coisa e é bem complexo, mas a gente nao precisa necessariamente implementar tudo
-o nazar falou que LTE é mais dificil que 802.11 entao provavelmente ele vai relevar se a gente implementar algo "parecido"
+a ideia inicial é simular só o downlink (que usa OFDM) e ignorar o uplink (que usa SC-FDMA) pra tentar facilitar as coisas.
+o LTE tem bastaaante coisa e é bem complexo, mas a gente nao precisa necessariamente implementar tudo.
+o nazar falou que LTE é mais dificil que 802.11 entao provavelmente ele vai relevar se a gente implementar algo "parecido".
 
 basicamente o fluxo é:
 
