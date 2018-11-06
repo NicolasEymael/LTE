@@ -17,8 +17,9 @@ basicamente o fluxo é:
 
 bits --> coding --> modulation --> MIMO --> OFDM --> (meio ruidoso) --> recepção do sinal e blablabla
 
-coding:
-  "The channel coding scheme for transport blocks in LTE is Turbo Coding as for UTRA, with a coding rate of R=1/3, two
+CODING:
+
+"The channel coding scheme for transport blocks in LTE is Turbo Coding as for UTRA, with a coding rate of R=1/3, two
 8-state constituent encoders and a contention-free Quadratic Permutation Polynomial (QPP) turbo code internal
 interleaver. Trellis termination is used for the turbo coding. Before the turbo coding, transport blocks are segmented
 into byte aligned segments with a maximum information block size of 6144 bits. Error detection is supported by the use
@@ -28,19 +29,22 @@ puta que pariu eu entendi foi nada, só entendi que é turbo coding de razão 1/
 https://www.etsi.org/deliver/etsi_ts/136200_136299/136212/10.00.00_60/ts_136212v100000p.pdf
 http://www.qtc.jp/3GPP/Specs/36212-800.pdf
 
-modulation:
-  "The modulation schemes supported in the downlink and uplink are QPSK, 16QAM and 64QAM."
+MODULATION:
+
+"The modulation schemes supported in the downlink and uplink are QPSK, 16QAM and 64QAM."
   
 ta esse é de boas se pa, parecido com um dos trabalhinhos
   
 MIMO:
-    "Transmission with multiple input and multiple output antennas (MIMO) are supported with configurations in the
+
+"Transmission with multiple input and multiple output antennas (MIMO) are supported with configurations in the
 downlink with two or four transmit antennas and two or four receive antennas, which allow for multi-layer
 transmissions with up to four streams."
 
 é aquele lance de usar varias antenas pra aumentar a taxa de dados loucamente e ainda to pensando em como fazer
 
 OFDM:
+
 aquela coisa que usa prefixo ciclico e tals que caiu na prova e acho que tem uma funçao pra isso no matlab
 
 deve ter função pra colocar ruido no matlab e a recepção é basicamente o contrario da transmissão então eras isso o trabalho.
