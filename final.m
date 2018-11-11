@@ -46,28 +46,40 @@ mod = qammod(decimal_valuesT, M);
 %--------------- OFDM: ---------------------%
 % provavelmente o OFDM vai ficar aqui
 % mod é um vetor coluna com numeros complexos
+ifft_sig=ifft(mod,64);
 
+% extensao ciclica %
+sig_ext=zeros(80,1);
+sig_ext(1:16)=ifft_sig(49:64);
+for i=1:64
+    sig_ext(i+16)=ifft_sig(i);
+end
 
 
 
 %--------------- TRANSMISSÃO NO CANAL: ---------------------%
 % inserir o ruido
-
-
+snr = 100;
+sig_ofdm=awgn(sig_ext,snr,'measured'); % Adding white Gaussian Noise
 
 
 %--------------- DE-OFDM: ---------------------%
-% blablabla
+% remove extensao ciclica %
+for i=1:64
+	sig_rext(i)=sig_ofdm(i+16);
+end
 
-
-
+recv_sig = fft(sig_rext,64);
+% arruma o sinal pra estar no formato da demodulação
+recv_sig = reshape(recv_sig,64,1);
+recv_sig=recv_sig(1:18,:);
 
 
 
 %--------------- DEMODULAÇÃO: ---------------------%
 
 % demod está no mesmo formato do decimal_valuesT
-demod = qamdemod(mod, M);
+demod = qamdemod(recv_sig, M);
 
 binary_matrixR = de2bi(demod, 'left-msb');
 
