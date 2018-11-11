@@ -2,7 +2,7 @@
 %   ESSE AQUI É O DE VERDADE VERDADEIRA
 %   NICOLAS EYMAEL
 %   RODRIGO RICHTER
-%--------------------------------------------------------------
+%--------------------------------------------------------
 
 clear all;
 close all;
@@ -18,7 +18,7 @@ data = [0 0 0 1 1 0 1 1]'; % só pra ajudar os testes mesmo
 % modulação a ser utilizada 4-QAM, 16-QAM ou 64-QAM
 M = 4;
 
-%--------------- CODIFICAÇÃO: ---------------------%
+%------------ CODIFICAÇÃO: ------------%
 % Turbo Coding de acordo com o livro "Understanding LTE with MATLAB"
 % por algum motivo ele insere 12 bits extras no final
 
@@ -30,7 +30,7 @@ TurboEncoder = comm.TurboEncoder('TrellisStructure',trellis,'InterleaverIndices'
 encoded = TurboEncoder.step(data);
 
 
-%--------------- MODULAÇÃO: ---------------------%
+%------------ MODULAÇÃO: ------------%
 
 % quebra o vetor em varias linhas
 % cada linha tem log2(M) bits (o necessario para a modulaçao M-QAM)
@@ -43,28 +43,11 @@ decimal_valuesT = bi2de(binary_matrixT, 'left-msb');
 mod = qammod(decimal_valuesT, M);
 
 
-%--------------- OFDM: ---------------------%
-% provavelmente o OFDM vai ficar aqui
-% mod é um vetor coluna com numeros complexos
-
-
-
-
-%--------------- TRANSMISSÃO NO CANAL: ---------------------%
+%------------ TRANSMISSÃO NO CANAL: ------------%
 % inserir o ruido
 
 
-
-
-%--------------- DE-OFDM: ---------------------%
-% blablabla
-
-
-
-
-
-
-%--------------- DEMODULAÇÃO: ---------------------%
+%------------ DEMODULAÇÃO: ------------%
 
 % demod está no mesmo formato do decimal_valuesT
 demod = qamdemod(mod, M);
@@ -76,7 +59,7 @@ binary_vectorR = reshape(binary_matrixR',1,[]);
 
 
 
-%--------------- DECODIFICAÇÃO: ---------------------%
+%------------ DECODIFICAÇÃO: ------------%
 
 % as variaveis para o codigo turbo ja foram inicializadas na CODIFICAÇÃO
 % quanto mais iterações, melhor a performance (valor arbitrario: 6)
@@ -85,9 +68,9 @@ TurboDecoder = comm.TurboDecoder('TrellisStructure',trellis,'InterleaverIndices'
 decoded = TurboDecoder.step(binary_vectorR');
 
 
-%--------------- PLOTS, DISPS E AFINS: ---------------------%
+%------------ PLOTS, DISPS E AFINS: ------------%
 
-%disp(data);
+disp(data);
 %disp(encoded);
 %disp(binary_matrixT);
 %disp(decimal_valuesT);
@@ -95,5 +78,5 @@ decoded = TurboDecoder.step(binary_vectorR');
 %disp(demod);
 %disp(binary_matrixR);
 %disp(binary_vectorR');
-%disp(decoded);
+disp(decoded);
 
