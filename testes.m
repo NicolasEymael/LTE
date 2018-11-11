@@ -2,8 +2,8 @@
 %------------ MODULAÇÃO: ------------%
 
 M = 4;  % 4-QAM or QPSK
-M = 16; % 16-QAM
-M = 64; % 64-QAM
+%M = 16; % 16-QAM
+%M = 64; % 64-QAM
 
 bitsIN = randi([0,M-1],1,12);   % IN -> vetor de inteiros, cada elemento é formado por log2(M) bits
 
