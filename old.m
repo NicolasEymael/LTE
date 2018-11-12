@@ -1,5 +1,5 @@
 
-%   ESSE AQUI É O DE VERDADE VERDADEIRA
+%   ESSE AQUI ? O DE VERDADE VERDADEIRA
 %   NICOLAS EYMAEL
 %   RODRIGO RICHTER
 %--------------------------------------------------------------
@@ -13,12 +13,12 @@ nbits = 8;
 
 % vetor binario com n bits
 %data = randi([0 1], nbits, 1);
-data = [0 0 0 1 1 0 1 1]'; % só pra ajudar os testes mesmo
+data = [0 0 0 1 1 0 1 1]'; % s? pra ajudar os testes mesmo
 
-% modulação a ser utilizada 4-QAM, 16-QAM ou 64-QAM
+% modula??o a ser utilizada 4-QAM, 16-QAM ou 64-QAM
 M = 4;
 
-%--------------- CODIFICAÇÃO: ---------------------%
+%--------------- CODIFICA??O: ---------------------%
 % Turbo Coding de acordo com o livro "Understanding LTE with MATLAB"
 % por algum motivo ele insere 12 bits extras no final
 
@@ -30,23 +30,23 @@ TurboEncoder = comm.TurboEncoder('TrellisStructure',trellis,'InterleaverIndices'
 encoded = TurboEncoder.step(data);
 
 
-%--------------- MODULAÇÃO: ---------------------%
+%--------------- MODULA??O: ---------------------%
 
 % quebra o vetor em varias linhas
-% cada linha tem log2(M) bits (o necessario para a modulaçao M-QAM)
+% cada linha tem log2(M) bits (o necessario para a modula?ao M-QAM)
 binary_matrixT = reshape(encoded,log2(M),[])';
 
 % converte cada linha de bits em um numero decimal
 decimal_valuesT = bi2de(binary_matrixT, 'left-msb');
 
-% executa a modulação M-QAM
+% executa a modula??o M-QAM
 mod = qammod(decimal_valuesT, M);
 
 
 %--------------- OFDM: ---------------------%
 % provavelmente o OFDM vai ficar aqui
-% mod é um vetor coluna com numeros complexos
-ifft_sig=ifft(mod',64);
+% mod ? um vetor coluna com numeros complexos
+ifft_sig=ifft(mod,64);
 
 % extensao ciclica %
 sig_ext=zeros(80,1);
@@ -57,14 +57,10 @@ end
 
 
 
-%--------------- TRANSMISSÃO NO CANAL: ---------------------%
+%--------------- TRANSMISS?O NO CANAL: ---------------------%
 % inserir o ruido
-snr = 2;
-%sig_ofdm=awgn(sig_ext,snr,'measured'); % Adding white Gaussian Noise
-sig_ofdm = sig_ext;
-
-
-
+snr = 100;
+sig_ofdm=awgn(sig_ext,snr,'measured'); % Adding white Gaussian Noise
 
 
 %--------------- DE-OFDM: ---------------------%
@@ -74,14 +70,15 @@ for i=1:64
 end
 
 recv_sig = fft(sig_rext,64);
+% arruma o sinal pra estar no formato da demodula??o
+recv_sig = reshape(recv_sig,64,1);
+recv_sig=recv_sig(1:18,:);
 
 
 
+%--------------- DEMODULA??O: ---------------------%
 
-
-%--------------- DEMODULAÇÃO: ---------------------%
-
-% demod está no mesmo formato do decimal_valuesT
+% demod est? no mesmo formato do decimal_valuesT
 demod = qamdemod(recv_sig, M);
 
 binary_matrixR = de2bi(demod, 'left-msb');
@@ -91,10 +88,10 @@ binary_vectorR = reshape(binary_matrixR',1,[]);
 
 
 
-%--------------- DECODIFICAÇÃO: ---------------------%
+%--------------- DECODIFICA??O: ---------------------%
 
-% as variaveis para o codigo turbo ja foram inicializadas na CODIFICAÇÃO
-% quanto mais iterações, melhor a performance (valor arbitrario: 6)
+% as variaveis para o codigo turbo ja foram inicializadas na CODIFICA??O
+% quanto mais itera??es, melhor a performance (valor arbitrario: 6)
 TurboDecoder = comm.TurboDecoder('TrellisStructure',trellis,'InterleaverIndices',indices,'NumIterations',6);
 
 decoded = TurboDecoder.step(binary_vectorR');
@@ -111,4 +108,3 @@ decoded = TurboDecoder.step(binary_vectorR');
 %disp(binary_matrixR);
 %disp(binary_vectorR');
 %disp(decoded);
-

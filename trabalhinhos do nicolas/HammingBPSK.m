@@ -22,12 +22,13 @@
 %-------------------------------------------------------------
 clear all;
 close all;
+clc;
 
 % ALGUMAS VARIÁVEIS DE SETUP
 k = 4; %% bits da mensagem
 n = 7; %% bits totais (mensagem + paridade)
 
-num_b = 100000; %quantidade de bits TOTAIS simulados
+num_b = 1000; %quantidade de bits TOTAIS simulados
 num_b = round(num_b/n)*n; %% agora a quantidade de bits é multipla de n
 num_bitsMsg = num_b / n * k;  %% quantidade de bits de mensagem (sem contar paridade)
 
@@ -211,4 +212,5 @@ legend('Medido', 'Teórico');
 ylabel('BER');
 xlabel('Eb/N0 (dB)');
 
-
+oi = ber*num_b;
+disp(oi.');
